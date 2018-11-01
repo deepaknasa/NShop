@@ -12,7 +12,7 @@ namespace NShop.Repository.Products
         Task<IEnumerable<Product>> GetProductsAsync();
         Task<Product> GetProductByIdAsync(int id);
         Task UpdateProductAsync(Product product);
-        Task CreateProductAsync(Product product);
+        Task<Product> CreateProductAsync(Product product);
         Task DeleteProductAsync(Product product);
     }
 }

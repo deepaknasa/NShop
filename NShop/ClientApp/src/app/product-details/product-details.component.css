@@ -1,0 +1,9 @@
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/eb/Pinova_%28apple%29_jm26295.jpg');
+    background-size: cover;
+  }
+  

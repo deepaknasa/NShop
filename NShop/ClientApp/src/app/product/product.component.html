@@ -1,0 +1,27 @@
+<h1>Product List</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!productList"><em>Loading...</em></p>
+
+<table mdbTable class='table' *ngIf="productList">
+  <thead class="black white-text">
+    <tr>
+      <th>Name</th>
+      <th>Description (C)</th>
+      <th>Price</th>
+      <th>Number of units available</th>
+      <th>Units</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of productList">
+      <td><a [routerLink]="['/product',product.id]">{{ product.name }}</a></td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price | currency:'CAD':symbol }}</td>
+      <td>{{ product.available }}</td>
+      <td>{{ product.unit }}</td>
+    </tr>
+  </tbody>
+</table>
+<button routerLink="/productedit" class="btn btn-primary">Add Product</button>

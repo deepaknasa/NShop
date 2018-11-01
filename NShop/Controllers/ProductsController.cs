@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NShop.Models;
 using NShop.Repository.Products;
 
 namespace NShop.Controllers
@@ -33,6 +34,14 @@ namespace NShop.Controllers
                 return NotFound();
             }
             return Ok(product);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddProduct([FromBody] Product product)
+        {
+            if (product == null)
+                return BadRequest();
+            var productResponse = await _productRepository.CreateProductAsync(product);
+            return Ok(productResponse);
         }
     }
 }

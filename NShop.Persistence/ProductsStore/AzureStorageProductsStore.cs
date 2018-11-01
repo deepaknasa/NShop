@@ -18,5 +18,10 @@ namespace NShop.DataStore.ProductsStore
         {
             throw new NotImplementedException();
         }
+
+        public Task<Product> CreateProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

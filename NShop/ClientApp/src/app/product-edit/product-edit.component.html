@@ -1,0 +1,32 @@
+<form [formGroup] ="productForm" (ngSubmit)= "onSubmit()" class="example-container">
+  <mat-form-field>
+    <input matInput formControlName="productName" placeholder="Product Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput formControlName="productDescription" placeholder="Description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput formControlName="productPrice" placeholder="Price" type="number">
+  </mat-form-field>
+
+  <mat-form-field>
+      <input matInput formControlName="productAvailableQuantity" placeholder="Available units" type="number">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select formControlName="productUnitofMeasure" placeholder="Unit Type">
+        <mat-option *ngFor="let unitType of unitList" [value]="unitType.unitId">{{unitType.unitDescription}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Category">
+      <div *ngFor="let categoryItem of categoryList">
+          <mat-option value="categoryItem.categoryId">{{categoryItem.categoryName}}</mat-option>
+      </div>
+    </mat-select>
+  </mat-form-field>
+  <button class="btn btn-control">Submit</button>
+</form>

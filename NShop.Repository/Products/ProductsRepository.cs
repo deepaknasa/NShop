@@ -26,10 +26,9 @@ namespace NShop.Repository.Products
             return await _dataStore.Products();
         }
 
-        public async Task CreateProductAsync(Product product)
+        public async Task<Product> CreateProductAsync(Product product)
         {
-            await Task.Delay(1000);
-            throw new NotImplementedException();
+            return await _dataStore.CreateProduct(product);
         }
 
         public async Task DeleteProductAsync(Product product)

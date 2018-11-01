@@ -1,0 +1,20 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{product.name}}</mat-card-title>
+    <mat-card-subtitle>{{product.name}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Pinova_%28apple%29_jm26295.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      {{product.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-content>{{product.price | currency:'CAD':symbol}}</mat-card-content>
+  <mat-card-actions>
+    <button [routerLink]= "['/productedit',product.id]">LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
+
+<div *ngIf="!product">{{statusMessage}}</div>

@@ -1,4 +1,5 @@
 ﻿using NShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,6 +38,15 @@ namespace NShop.DataStore.ProductsStore
         public async Task<Product> ProductById(int id)
         {
             return await Task.FromResult(_products.Where(p => p.Id == id).FirstOrDefault());
+        }
+
+        public Task<Product> CreateProduct(Product product)
+        {
+            if (product == null)
+                throw new ArgumentNullException("product");
+            product.Id = _products.Max(x => x.Id) + 1;
+            ((List<Product>)_products).Add(product);
+            return Task.FromResult(product);
         }
     }
 }

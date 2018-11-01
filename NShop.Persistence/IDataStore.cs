@@ -12,6 +12,7 @@ namespace NShop.DataStore
         #region Products DataStore contracts
         Task<IEnumerable<Product>> Products();
         Task<Product> ProductById(int id);
+        Task<Product> CreateProduct(Product product);
         #endregion
     }
 }
