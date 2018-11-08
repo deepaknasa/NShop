@@ -1,13 +1,15 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NShop.DataStore;
 using NShop.DataStore.ProductsStore;
 using NShop.Repository.Products;
+using NShop.Repository.UserAccounts;
 
 namespace NShop
 {
@@ -32,7 +34,28 @@ namespace NShop
             });
 
             services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<IUserAccountsRepository, UserAccountsRepository>();
             services.AddTransient<IDataStore, InMemoryProductsStore>();
+
+            services.AddAuthentication()
+                .AddJwtBearer("Google", options =>
+                 {
+                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                     {
+                         ValidIssuer = "accounts.google.com",
+                         ValidAudience = Configuration["Authentication:Google:ClientId"].ToString()
+                     };
+                     options.MetadataAddress = Configuration["Authentication:Google:metadata_uri"].ToString();
+                 })
+                .AddJwtBearer("Facebook", options => { }); // fb login coming soon.
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .AddAuthenticationSchemes("Google", "Facebook")
+                .Build();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +71,7 @@ namespace NShop
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -65,6 +89,11 @@ namespace NShop
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    //app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                    //{
+                    //    HotModuleReplacement = true,
+                    //    ProjectPath = "ClientApp"
+                    //});
                 }
             });
         }

@@ -10,9 +10,10 @@ namespace NShop.DataStore
     public interface IDataStore
     {
         #region Products DataStore contracts
-        Task<IEnumerable<Product>> Products();
-        Task<Product> ProductById(int id);
         Task<Product> CreateProduct(Product product);
+        Task<IEnumerable<Product>> Products(Guid userId);
+        Task<Product> ProductById(Guid userId, int id);
+        Task<ApplicationUser> GetApplicationUser(string emailAddress);
         #endregion
     }
 }

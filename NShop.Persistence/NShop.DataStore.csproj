@@ -44,6 +44,7 @@
     <Compile Include="ProductsStore\AzureStorageProductsStore.cs" />
     <Compile Include="IDataStore.cs" />
     <Compile Include="ProductsStore\InMemoryProductsStore.cs" />
+    <Compile Include="ProductsStore\Entities\UserProducts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

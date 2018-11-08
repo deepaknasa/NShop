@@ -16,28 +16,28 @@ namespace NShop.Repository.Products
             _dataStore = dataStore;
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Product> GetProductByIdAsync(Guid userId, int id)
         {
-            return await _dataStore.ProductById(id);
+            return await _dataStore.ProductById(userId, id);
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Product>> GetProductsAsync(Guid userId)
         {
-            return await _dataStore.Products();
+            return await _dataStore.Products(userId);
         }
 
-        public async Task<Product> CreateProductAsync(Product product)
+        public async Task<Product> CreateProductAsync(Guid userId, Product product)
         {
             return await _dataStore.CreateProduct(product);
         }
 
-        public async Task DeleteProductAsync(Product product)
+        public async Task DeleteProductAsync(Guid userId, Product product)
         {
             await Task.Delay(1000);
             throw new NotImplementedException();
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Guid userId, Product product)
         {
             await Task.Delay(1000);
         }

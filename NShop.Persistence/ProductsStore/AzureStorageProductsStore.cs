@@ -9,12 +9,17 @@ namespace NShop.DataStore.ProductsStore
 {
     public class AzureStorageProductsStore : IDataStore
     {
-        public Task<IEnumerable<Product>> Products()
+        public Task<IEnumerable<Product>> Products(Guid userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Product> ProductById(int id)
+        public Task<Product> ProductById(Guid userId, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApplicationUser> GetApplicationUser(string emailAddress)
         {
             throw new NotImplementedException();
         }
