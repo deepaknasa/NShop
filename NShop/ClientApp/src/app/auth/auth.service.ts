@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { LoginService } from '../login/login.service';
@@ -15,6 +15,7 @@ export class AuthService {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private loginSvc: LoginService,
     private _ngZone: NgZone
   ) {
@@ -30,7 +31,11 @@ export class AuthService {
       this.loggedInUser = user;
       console.log('auth.service - sufficient info to login user. calling loggedIn.next(true)');
       this.loggedIn.next(true);
-      this._ngZone.run(() => { this.router.navigate(['/']); });
+      this._ngZone.run(() => {
+        let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        console.log('auth.service: redirect to return url: ' + returnUrl);
+        this.router.navigateByUrl(returnUrl);
+      });
     } else {
       console.log('auth.service - insufficient info to login user. So logging out.');
       this.logout();

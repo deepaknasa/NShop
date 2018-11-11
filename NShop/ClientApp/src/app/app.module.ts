@@ -26,7 +26,6 @@ import { AppMaterialModule } from './app-material/app-material.module';
 import { LoginService } from './login/login.service';
 import { GoogleService } from './login/google/google.service';
 import { AuthInterceptor } from './common/auth-interceptor.service';
-import { FakeProductServiceInterceptorProvider, FakeProductServiceInterceptor } from './fake-services/fake-product-service-interceptor';
 import { FakeInterceptorProviders } from './fake-services/fake-interceptor-provider';
 
 const appInitializerFn = (appConfig: NshopConfigService) => {
@@ -53,10 +52,10 @@ const appInitializerFn = (appConfig: NshopConfigService) => {
     AppMaterialModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'product', component: ProductComponent },
-      { path: 'product/:id', component: ProductDetailsComponent },
-      { path: 'productedit/:id', component: ProductEditComponent },
-      { path: 'productedit', component: ProductEditComponent },
+      { path: 'product', component: ProductComponent, canActivate: [AuthGuard] },
+      { path: 'product/:id', component: ProductDetailsComponent, canActivate: [AuthGuard] },
+      { path: 'productedit/:id', component: ProductEditComponent, canActivate: [AuthGuard] },
+      { path: 'productedit', component: ProductEditComponent, canActivate: [AuthGuard] },
       { path: 'login', component: LoginComponent },
     ]),
     BrowserAnimationsModule,

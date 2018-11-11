@@ -31,7 +31,6 @@ export class GoogleComponent implements AfterViewInit {
   public googleInit() {
     gapi.load('auth2', () => {
       this.auth2 = gapi.auth2.init(this.clientConfig);
-      this.attachSignin(document.getElementById('g-signin2'));
 
       var contextualFunc = (function (googleUser) { this.onUserSignedIn(googleUser); }).bind(this);
       gapi.signin2.render('my-signin2', {
@@ -45,19 +44,6 @@ export class GoogleComponent implements AfterViewInit {
       });
     });
   }
-  public attachSignin(element) {
-    //this.auth2.attachClickHandler(element, {},
-    //  (googleUser) => this.onUserSignedIn(googleUser), (error) => {
-    //    console.log(JSON.stringify(error, undefined, 2));
-    //  });
-    this.auth2.isSignedIn.listen((status: boolean) => {
-      if (status) {
-        var googleUser = this.auth2.currentUser.get();
-        this.onUserSignedIn(googleUser);
-      }
-    });
-  }
-
   public onSignInFailure(error: any) {
     console.log(error);
   }
@@ -72,12 +58,7 @@ export class GoogleComponent implements AfterViewInit {
       token: googleUser.getAuthResponse().id_token
     };
 
-    //console.log('Token: ' + loggedInUser.token);
-    //console.log('ID: ' + profile.getId());
-    //console.log('Name: ' + loggedInUser.name);
-    //console.log('Image URL: ' + loggedInUser.profileImage);
-    //console.log('Email: ' + loggedInUser.email);
-    console.log('google user signed in');
+    console.log('google user signed in. User: ' + JSON.stringify(loggedInUser));
     this.onGoogleLogIn(loggedInUser);
   }
 

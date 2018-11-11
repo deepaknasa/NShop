@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpResponse, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { HttpRequest } from "selenium-webdriver/http";
+import { HttpInterceptor, HttpResponse, HttpHandler, HttpEvent, HTTP_INTERCEPTORS, HttpRequest } from "@angular/common/http";
 import { Observable, of, throwError } from "rxjs";
 import { mergeMap, materialize, delay, dematerialize } from "rxjs/operators";
 import { Product } from "../model/Product";
